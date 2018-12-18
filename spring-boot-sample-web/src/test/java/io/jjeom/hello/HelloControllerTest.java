@@ -22,7 +22,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 // @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)    // 실제 내장톰캣이 실행되지 않고 Mocking한다.
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)    // 실제 내장톰캣이 실행된다.
 @AutoConfigureMockMvc
-public class HelloControllerTest<test> {
+public class HelloControllerTest {
 
     @Autowired
     MockMvc mockMvc;
