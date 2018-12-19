@@ -56,9 +56,8 @@ public class HelloControllerTest {
     public void helloForWebTestClient() {
         when(helloService.getName()).thenReturn("jeongjae");
         webTestClient.get().uri("/hello").exchange().expectStatus().isOk()
-            .expectBody(String.class).isEqualTo("Hello jeongjae");
+                .expectBody(String.class).isEqualTo("Hello jeongjae");
+
     }
-
-
 
 }
