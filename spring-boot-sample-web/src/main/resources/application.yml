@@ -1,6 +1,22 @@
+spring:
+  profiles:
+    active: @spring.profiles.active@
+
 server:
   port: 8081
 
 logging:
   level:
     io.jjeom: DEBUG
+
+---
+spring:
+  profiles: dev
+
+name: dev-jeongjae
+
+---
+spring:
+  profiles: prod
+
+name: prod-jeongjae
