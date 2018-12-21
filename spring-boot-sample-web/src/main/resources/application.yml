@@ -12,11 +12,11 @@ logging:
 ---
 spring:
   profiles: dev
-
-name: dev-jeongjae
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
 
 ---
 spring:
   profiles: prod
-
-name: prod-jeongjae
