@@ -1,21 +1,40 @@
+server:
+  port: 8081
+
 spring:
   profiles:
     active: @spring.profiles.active@
-
-server:
-  port: 8081
+  jpa:
+    show-sql: true
+    output:
+      ansi:
+        enabled: always
 
 logging:
   level:
     io.jjeom: DEBUG
+    #org.hibernate.SQL: DEBUG
+    #org.hibernate.type.descriptor.sql.BasicBinder: TRACE
 
 ---
 spring:
-  profiles: dev
+  profiles: local
+  jpa:
+    database: HSQL
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      generate-ddl: true
+      ddl-auto: create
+  datasource:
+    data: classpath*:db/hsqldb/data.sql
   h2:
     console:
       enabled: true
       path: /h2-console
+
+---
+spring:
+  profiles: dev
 
 ---
 spring:

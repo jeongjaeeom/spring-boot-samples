@@ -7,6 +7,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import org.springframework.test.web.servlet.MockMvc;
@@ -35,6 +36,14 @@ public class HelloControllerTest {
 
     @Autowired
     WebTestClient webTestClient;
+
+    @Autowired
+    PasswordEncoder passwordEncoder;
+
+    @Test
+    public void test() {
+        System.out.println(passwordEncoder.encode("1234"));
+    }
 
     @Test
     public void hello() throws Exception {

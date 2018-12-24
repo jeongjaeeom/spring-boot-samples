@@ -3,6 +3,7 @@ package io.jjeom.accounts;
 import io.jjeom.commons.jpa.BaseEntity;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -13,6 +14,7 @@ import java.util.Set;
  */
 @Getter
 @Setter
+@ToString(callSuper = true)
 @Entity
 public class Account extends BaseEntity {
 
@@ -24,6 +26,6 @@ public class Account extends BaseEntity {
     private String email;
 
     @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+    @JoinTable(name = "account_role", joinColumns = @JoinColumn(name = "account_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
 }

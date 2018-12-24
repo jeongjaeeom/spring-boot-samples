@@ -3,8 +3,11 @@ package io.jjeom.accounts;
 import io.jjeom.commons.jpa.BaseEntity;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 
 /**
  * @author Jeongjae Eom
@@ -12,9 +15,15 @@ import javax.persistence.Entity;
  */
 @Getter
 @Setter
+@ToString(callSuper = true)
 @Entity
 public class Role extends BaseEntity {
 
-    private String name;
+    @Enumerated(EnumType.STRING)
+    private RoleName name;
+
+    public enum RoleName {
+        ADMIN, USER
+    }
 
 }
