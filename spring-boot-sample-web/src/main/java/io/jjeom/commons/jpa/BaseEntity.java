@@ -1,5 +1,6 @@
 package io.jjeom.commons.jpa;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
@@ -16,6 +17,7 @@ import java.time.LocalDateTime;
  */
 @Getter
 @Setter
+@EqualsAndHashCode(of = "id")
 @MappedSuperclass
 public class BaseEntity {
 

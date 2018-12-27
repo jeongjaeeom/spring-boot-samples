@@ -12,6 +12,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.time.LocalDateTime;
+import java.util.Date;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -42,6 +45,9 @@ public class HelloControllerTest {
 
     @Test
     public void test() {
+        System.out.println(new Date().getTime() / 1000);
+        System.out.println(System.currentTimeMillis() / 1000);
+        System.out.println(LocalDateTime.now().getSecond());
         System.out.println(passwordEncoder.encode("1234"));
     }
 
