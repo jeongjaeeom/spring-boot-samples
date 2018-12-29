@@ -12,6 +12,12 @@ logging:
   level:
     io.jjeom: DEBUG
 
+pebble:
+  suffix: .html
+  cache: false
+  exposeSessionAttributes: true
+  exposeRequestAttributes: true
+
 ---
 spring:
   profiles: local
