@@ -4,8 +4,6 @@ server:
 spring:
   profiles:
     active: @spring.profiles.active@
-  jpa:
-    show-sql: true
   output:
     ansi:
       enabled: always
@@ -17,18 +15,19 @@ logging:
 ---
 spring:
   profiles: local
+  datasource:
+    url: jdbc:mysql://localhost/springboot
+    username: jjeom
+    password: a123456A
   jpa:
-    database: HSQL
-    database-platform: org.hibernate.dialect.H2Dialect
+    show-sql: true
+    database-platform: org.hibernate.dialect.MySQL8Dialect
     hibernate:
       generate-ddl: true
       ddl-auto: create
-  datasource:
-    data: classpath*:db/hsqldb/data.sql
-  h2:
-    console:
-      enabled: true
-      path: /h2-console
+    properties:
+      hibernate:
+        format_sql: true
 
 ---
 spring:

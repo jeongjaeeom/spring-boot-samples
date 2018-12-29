@@ -7,10 +7,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class HelloController {
 
-    @Autowired
     private HelloService helloService;
 
-    @GetMapping(value = {"/", "/hello"})
+    public HelloController(HelloService helloService) {
+        this.helloService = helloService;
+    }
+
+    @GetMapping("/hello")
     public String hello() {
         return "Hello " + helloService.getName();
     }

@@ -3,13 +3,15 @@ package io.jjeom.accounts;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @author Jeongjae Eom
  * @since 2018-12-21
  */
-@RestController("/accounts")
+@RestController
+@RequestMapping("/accounts")
 public class AccountController {
 
     @Autowired

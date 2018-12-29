@@ -3,7 +3,6 @@ package io.jjeom.accounts;
 import io.jjeom.commons.jpa.BaseEntity;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -14,11 +13,10 @@ import java.util.Set;
  */
 @Getter
 @Setter
-@ToString(callSuper = true)
 @Entity
 public class Account extends BaseEntity {
 
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String username;
 
     private String password;
