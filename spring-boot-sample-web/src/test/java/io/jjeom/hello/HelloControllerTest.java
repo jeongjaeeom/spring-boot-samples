@@ -1,5 +1,6 @@
 package io.jjeom.hello;
 
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 // @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)    // 실제 내장톰캣이 실행되지 않고 Mocking한다.
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)    // 실제 내장톰캣이 실행된다.
 @AutoConfigureMockMvc
+@Slf4j
 public class HelloControllerTest {
 
     @Autowired

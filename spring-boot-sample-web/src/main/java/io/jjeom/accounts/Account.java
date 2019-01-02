@@ -1,8 +1,8 @@
 package io.jjeom.accounts;
 
+import com.google.common.collect.Sets;
 import io.jjeom.commons.jpa.BaseEntity;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -13,6 +13,9 @@ import java.util.Set;
  */
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Entity
 public class Account extends BaseEntity {
 
@@ -23,7 +26,18 @@ public class Account extends BaseEntity {
 
     private String email;
 
+    @Builder.Default
     @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "account_role", joinColumns = @JoinColumn(name = "account_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<Role> roles;
+    @JoinTable(name = "account_roles", joinColumns = @JoinColumn(name = "account_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
+    private Set<AccountRole> roles = Sets.newHashSet();
+
+    public void addRole(AccountRole role) {
+        this.getRoles().add(role);
+        role.getAccounts().add(this);
+    }
+
+    public void removeRole(AccountRole role) {
+        this.getRoles().remove(role);
+        role.getAccounts().remove(this);
+    }
 }

@@ -1,0 +1,11 @@
+server:
+  port: 0
+
+spring:
+  output:
+    ansi:
+      enabled: always
+
+logging:
+  level:
+    io.jjeom: DEBUG

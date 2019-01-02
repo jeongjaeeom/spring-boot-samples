@@ -1,7 +1,7 @@
 package io.jjeom.security;
 
 import io.jjeom.accounts.Account;
-import io.jjeom.accounts.Role;
+import io.jjeom.accounts.AccountRole;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -25,9 +25,9 @@ public class SignedUser extends User {
         this.account = account;
     }
 
-    private static Collection<? extends GrantedAuthority> authorities(Set<Role> roles) {
-        return roles.stream()
-                .map(r -> new SimpleGrantedAuthority("ROLE_" + r.getName()))
+    private static Collection<? extends GrantedAuthority> authorities(Set<AccountRole> accountRoles) {
+        return accountRoles.stream()
+                .map(r -> new SimpleGrantedAuthority("ROLE_" + r.getRole()))
                 .collect(Collectors.toSet());
     }
 

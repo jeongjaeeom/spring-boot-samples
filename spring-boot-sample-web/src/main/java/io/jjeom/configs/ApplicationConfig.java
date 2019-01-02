@@ -1,15 +1,18 @@
 package io.jjeom.configs;
 
+import io.jjeom.accounts.*;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.core.env.Environment;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author Jeongjae Eom
@@ -30,18 +33,58 @@ public class ApplicationConfig {
     }
 
     @Bean
-    public ApplicationRunner applicationRunner() {
+    public ApplicationRunner applicationRunner(Environment environment, ApplicationInitializer applicationInitializer) {
         return new ApplicationRunner() {
-
-            @Autowired
-            Environment environment;
-
+            @Transactional
             @Override
-            public void run(ApplicationArguments args) throws Exception {
+            public void run(ApplicationArguments args) {
                 for (final String profileName : environment.getActiveProfiles()) {
                     log.info("Currently active profile - {}", profileName);
                 }
+                applicationInitializer.setUp();
             }
         };
+    }
+
+    private interface ApplicationInitializer {
+        void setUp();
+    }
+
+    @Component
+    @Profile("!prod")
+    private static class DevApplicationInitializer implements ApplicationInitializer {
+
+        private AccountRepository accountRepository;
+        private AccountRoleRepository accountRoleRepository;
+        private PasswordEncoder passwordEncoder;
+
+        private DevApplicationInitializer(AccountRepository accountRepository, AccountRoleRepository accountRoleRepository, PasswordEncoder passwordEncoder) {
+            this.accountRepository = accountRepository;
+            this.accountRoleRepository = accountRoleRepository;
+            this.passwordEncoder = passwordEncoder;
+        }
+
+        @Override
+        public void setUp() {
+            log.info("Setting up for DEV environment.");
+            Account adminAccount = Account.builder()
+                    .username("admin")
+                    .password(passwordEncoder.encode("a123456A"))
+                    .email("jeongjae.eom@gmail.com")
+                    .build();
+            adminAccount.addRole(AccountRole.builder().role(Role.ADMIN).build());
+            adminAccount.addRole(AccountRole.builder().role(Role.USER).build());
+            accountRepository.save(adminAccount);
+        }
+    }
+
+    @Component
+    @Profile("prod")
+    private static class ProdNotApplicationInitializer implements ApplicationInitializer {
+
+        @Override
+        public void setUp() {
+            log.info("Setting up for PRODUCTION environment.");
+        }
     }
 }
