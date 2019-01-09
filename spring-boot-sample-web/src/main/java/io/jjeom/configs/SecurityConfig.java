@@ -1,6 +1,6 @@
 package io.jjeom.configs;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import io.jjeom.security.UserDetailsServiceImpl;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -13,13 +13,15 @@ import org.springframework.security.crypto.password.PasswordEncoder;
  * @since 2018-12-21
  */
 @EnableWebSecurity
-public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired
     PasswordEncoder passwordEncoder;
-
-    @Autowired
     UserDetailsService userDetailsService;
+
+    public SecurityConfig(UserDetailsServiceImpl userDetailsService, PasswordEncoder passwordEncoder) {
+        this.userDetailsService = userDetailsService;
+        this.passwordEncoder = passwordEncoder;
+    }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {

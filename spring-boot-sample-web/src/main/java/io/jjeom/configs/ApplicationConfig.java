@@ -1,6 +1,9 @@
 package io.jjeom.configs;
 
-import io.jjeom.accounts.*;
+import io.jjeom.accounts.Account;
+import io.jjeom.accounts.AccountRepository;
+import io.jjeom.accounts.AccountRole;
+import io.jjeom.accounts.Role;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.boot.ApplicationArguments;
@@ -55,17 +58,18 @@ public class ApplicationConfig {
     private static class DevApplicationInitializer implements ApplicationInitializer {
 
         private AccountRepository accountRepository;
-        private AccountRoleRepository accountRoleRepository;
         private PasswordEncoder passwordEncoder;
+        private AppProperties appProperties;
 
-        private DevApplicationInitializer(AccountRepository accountRepository, AccountRoleRepository accountRoleRepository, PasswordEncoder passwordEncoder) {
+        private DevApplicationInitializer(AccountRepository accountRepository, PasswordEncoder passwordEncoder, AppProperties appProperties) {
             this.accountRepository = accountRepository;
-            this.accountRoleRepository = accountRoleRepository;
+            this.appProperties = appProperties;
             this.passwordEncoder = passwordEncoder;
         }
 
         @Override
         public void setUp() {
+            log.info("appProperties.name: {}", appProperties.getName());
             log.info("Setting up for DEV environment.");
             Account adminAccount = Account.builder()
                     .username("admin")
@@ -73,7 +77,7 @@ public class ApplicationConfig {
                     .email("jeongjae.eom@gmail.com")
                     .build();
             adminAccount.addRole(AccountRole.builder().role(Role.ADMIN).build());
-            adminAccount.addRole(AccountRole.builder().role(Role.USER).build());
+            // adminAccount.addRole(AccountRole.builder().role(Role.USER).build());
             accountRepository.save(adminAccount);
         }
     }

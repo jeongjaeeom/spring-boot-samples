@@ -22,6 +22,11 @@ public class AccountRepositoryTest {
     private AccountRoleRepository accountRoleRepository;
 
     @Test
+    public void ddl() {
+        System.out.println("OK");
+    }
+
+    @Test
     @Rollback(false)
     public void addAccount() {
         Account adminAccount = Account.builder()

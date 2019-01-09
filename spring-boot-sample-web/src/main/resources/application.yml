@@ -19,6 +19,9 @@ pebble:
   exposeSessionAttributes: true
   exposeRequestAttributes: true
 
+app:
+  name: spring-boot-sampe-web
+
 ---
 spring:
   profiles: local
