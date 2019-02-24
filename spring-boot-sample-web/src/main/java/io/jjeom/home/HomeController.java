@@ -28,7 +28,7 @@ public class HomeController {
         throw new IllegalStateException("Basic Error");
     }
 
-    @RequestMapping("/home2")
+    @GetMapping("/home2")
     public ResponseEntity<String> handle() throws URISyntaxException {
         URI location = new URI("/home");
         HttpHeaders responseHeaders = new HttpHeaders();

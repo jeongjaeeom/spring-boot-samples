@@ -1,6 +1,7 @@
 package io.jjeom.accounts;
 
 import com.google.common.collect.Sets;
+import io.jjeom.commons.jpa.AuditableEntity;
 import io.jjeom.commons.jpa.BaseEntity;
 import lombok.*;
 
@@ -25,6 +26,5 @@ public class AccountRole extends BaseEntity {
     @Builder.Default
     @ManyToMany(mappedBy = "roles", cascade = CascadeType.ALL)
     private Set<Account> accounts = Sets.newHashSet();
-
 
 }

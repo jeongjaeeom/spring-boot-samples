@@ -4,6 +4,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -27,7 +28,6 @@ public class AccountRepositoryTest {
     }
 
     @Test
-    @Rollback(false)
     public void addAccount() {
         Account adminAccount = Account.builder()
                 .username("admin")
@@ -37,5 +37,12 @@ public class AccountRepositoryTest {
         adminAccount.addRole(AccountRole.builder().role(Role.ADMIN).build());
         adminAccount.addRole(AccountRole.builder().role(Role.USER).build());
         accountRepository.save(adminAccount);
+
+        accountRepository.findAll();
+        Account found = accountRepository.findByUsername("admin");
+        System.out.println(found.getUsername());
+        System.out.println(found.getCreatedAt());
+        System.out.println(found.getLastModifiedAt());
+
     }
 }
