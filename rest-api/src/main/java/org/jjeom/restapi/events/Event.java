@@ -2,6 +2,7 @@ package org.jjeom.restapi.events;
 
 import lombok.*;
 
+import javax.persistence.Entity;
 import java.time.LocalDateTime;
 
 /**
@@ -14,6 +15,7 @@ import java.time.LocalDateTime;
 @Getter
 //@Setter
 @EqualsAndHashCode(of = "id")
+@Entity
 public class Event {
     private Integer id;
     private String name;

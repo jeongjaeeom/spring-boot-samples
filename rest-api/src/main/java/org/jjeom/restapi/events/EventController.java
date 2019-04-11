@@ -1,5 +1,6 @@
 package org.jjeom.restapi.events;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.hateoas.MediaTypes;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -16,14 +17,17 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
  * @since 2019-04-01
  */
 @Controller
+@RequiredArgsConstructor
 @RequestMapping(value = "/api/events", produces = MediaTypes.HAL_JSON_UTF8_VALUE)
 public class EventController {
-
+    
+    private final EventRepository eventRepository;
+    
     @PostMapping
-    public ResponseEntity createøEvent(@RequestBody Event event) {
-        URI createUri = linkTo(EventController.class).slash("{id}").toUri();
-        event.setId(10);
-        return ResponseEntity.created(createUri).body(event);
+    public ResponseEntity createEvent(@RequestBody Event event) {
+        Event newEvent = eventRepository.save(event);
+        URI createUri = linkTo(EventController.class).slash(newEvent.getId()).toUri();
+        return ResponseEntity.created(createUri).body(newEvent);
     }
 
 }
