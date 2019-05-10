@@ -1,4 +1,7 @@
 spring:
+  output:
+    ansi:
+      enabled: always
   datasource:
     url: jdbc:mysql://localhost:3306/rest-api?autoReconnection=true&autoReconnectForPools=true&useSSL=false&characterEncoding=UTF-8&serverTimezone=JST
     username: jeongjaeeom
