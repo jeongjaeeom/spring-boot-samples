@@ -101,6 +101,7 @@ public class EventControllerTest {
         mockMvc.perform(post("/api/events")
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
                 .content(this.objectMapper.writeValueAsString(event)))
+                .andDo(print())
             .andExpect(status().isBadRequest());
     }
 
@@ -124,11 +125,10 @@ public class EventControllerTest {
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
                 .content(this.objectMapper.writeValueAsString(event)))
                 .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("content[0].objectName").exists())
-                .andExpect(jsonPath("content[0].field").exists())
-                .andExpect(jsonPath("content[0].defaultMessage").exists())
-                .andExpect(jsonPath("content[0].code").exists())
-                .andExpect(jsonPath("content[0].rejectedValue").exists())
+                .andDo(print())
+                .andExpect(jsonPath("$[0].objectName").exists())
+                .andExpect(jsonPath("$[0].defaultMessage").exists())
+                .andExpect(jsonPath("$[0].code").exists())
         ;
     }
 

@@ -3,6 +3,7 @@ package org.jjeom.restapi.commons;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
+import org.springframework.boot.jackson.JsonComponent;
 import org.springframework.validation.Errors;
 
 import java.io.IOException;
@@ -11,6 +12,7 @@ import java.io.IOException;
  * @author eomjeongjae
  * @since 2019-05-10
  */
+@JsonComponent
 public class ErrorsSerializer extends JsonSerializer<Errors> {
 
     @Override
