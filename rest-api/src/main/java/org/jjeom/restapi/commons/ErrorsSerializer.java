@@ -8,15 +8,10 @@ import org.springframework.validation.Errors;
 
 import java.io.IOException;
 
-/**
- * @author eomjeongjae
- * @since 2019-05-10
- */
 @JsonComponent
 public class ErrorsSerializer extends JsonSerializer<Errors> {
-
     @Override
-    public void serialize(Errors errors, JsonGenerator gen, SerializerProvider serializerProvider) throws IOException {
+    public void serialize(Errors errors, JsonGenerator gen, SerializerProvider serializers) throws IOException {
         gen.writeStartArray();
         errors.getFieldErrors().forEach(e -> {
             try {
