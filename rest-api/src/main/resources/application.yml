@@ -14,3 +14,15 @@ spring:
     properties:
       hibernate:
         format_sql: true
+
+logging:
+  level:
+    org.springframework.security.web: DEBUG
+
+my-app:
+  admin-username: admin@email.com
+  admin-password: admin
+  user-username: user@email.com
+  user-password: user
+  client-id: myApp
+  client-secret: pass
